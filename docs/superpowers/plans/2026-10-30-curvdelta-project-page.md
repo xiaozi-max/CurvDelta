@@ -2,20 +2,19 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build a private, static research project page containing the CurvDelta title, author block, abstract, overview, and two code repository links.
+**Goal:** Build and privately publish the source repository for a minimal CurvDelta research project page.
 
-**Architecture:** A buildless `index.html` provides semantic content and `styles.css` provides responsive presentation. A single checked-in overview image is the only page asset, and a standard-library Python test validates publication-critical text, links, and privacy constraints.
+**Architecture:** A buildless static page uses one semantic `index.html`, one `styles.css`, and one local overview image. Content is fixed paper metadata; external navigation is limited to the two GitHub repositories and the first two authors’ GitHub profiles.
 
-**Tech Stack:** HTML5, CSS3, Python `unittest`, GitHub Pages-compatible static files.
+**Tech Stack:** HTML5, CSS3, Python standard-library validation, GitHub Pages-compatible repository layout.
 
 ## Global Constraints
 
 - Keep the GitHub repository private and do not enable public Pages.
-- Use no JavaScript, package manager, framework, or build step.
-- Credit Zeguan Xiao and Zhuocheng Liang as equal contributors.
-- Omit parenthesized institution domains from the supplied author block.
-- Include only the title, author/affiliation block, abstract, overview, repository links, and minimal footer.
-- Publish no credentials, private filesystem paths, or Chinese text.
+- Use the six supplied author names and four affiliations exactly, without parenthesized institutional domains.
+- Mark Zeguan Xiao and Zhuocheng Liang as equal contributors.
+- Include only title, authors, abstract, overview, repository links, and a minimal footer.
+- Do not add JavaScript, frameworks, package dependencies, animation, results, citation, or navigation.
 
 ---
 
@@ -26,65 +25,69 @@
 - Create: `styles.css`
 - Create: `assets/overview.png`
 - Create: `README.md`
+- Create: `tests/test_page.py`
 
 **Interfaces:**
-- Consumes: the approved abstract, overview image, author list, and repository URLs.
-- Produces: a buildless static page whose entry point is `index.html`.
+- Consumes: the approved abstract and overview asset from `curvDelta_learning`.
+- Produces: a GitHub Pages-compatible static document at repository root.
 
-- [ ] **Step 1: Write the failing publication test**
+- [ ] **Step 1: Write the failing page-content test**
 
-Create `tests/test_site.py` with assertions that `index.html` contains the exact title, six author names, `Equal contribution`, the complete abstract opening and closing sentences, both repository URLs, and `assets/overview.png`; assert that neither HTML nor CSS contains a Windows drive path, credential token, or CJK character.
+Create `tests/test_page.py` with standard-library assertions that `index.html` contains the exact title, all six authors, four affiliations, equal-contribution note, abstract heading, overview image, and both repository URLs; assert that `styles.css` and `assets/overview.png` exist.
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [ ] **Step 2: Run the test and verify it fails**
 
-Run: `python -m unittest tests.test_site -v`
+Run: `python -m unittest tests.test_page -v`
 
-Expected: FAIL because `index.html` and `styles.css` do not exist.
+Expected: failure because `index.html` does not exist.
 
-- [ ] **Step 3: Implement the minimal static page**
+- [ ] **Step 3: Implement the minimal page**
 
-Create semantic `header`, `main`, `section`, and `footer` markup. Render authors as:
+Create semantic HTML sections in this order: `header`, author metadata, `Abstract`, `Overview`, `Code`, `footer`. Add only responsive typography, a centered content column, a two-column repository-link row that becomes one column on mobile, visible focus styles, and neutral research-page colors.
 
-```text
-Zeguan Xiao¹,* · Zhuocheng Liang¹,* · Yun Chen¹ · Yong Wang² · Guanhua Chen³ · Pinyan Lu⁴
+- [ ] **Step 4: Run tests and local validation**
+
+Run:
+
+```powershell
+python -m unittest tests.test_page -v
+python -m http.server 8000
 ```
 
-Render affiliations without domains and add `* Equal contribution.` Add two repository cards linking capability learning and selective unlearning. Use responsive CSS with an off-white background, navy text, blue accents, visible focus states, and a one-column mobile breakpoint.
+Expected: all tests pass; browser inspection shows correct desktop and mobile layouts, working links, no console errors, and a visible overview image.
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [ ] **Step 5: Commit the page**
 
-Run: `python -m unittest tests.test_site -v`
-
-Expected: all tests PASS.
-
-- [ ] **Step 5: Commit**
-
-```bash
-git add index.html styles.css assets/overview.png README.md tests/test_site.py
+```powershell
+git add index.html styles.css assets/overview.png README.md tests/test_page.py docs
 git commit -m "feat: add CurvDelta project page"
 ```
 
-### Task 2: Browser verification and private GitHub source
+### Task 2: Private GitHub source publication
 
 **Files:**
-- Modify only if browser verification reveals a concrete layout or accessibility defect.
+- Verify: all tracked files
 
 **Interfaces:**
-- Consumes: Task 1 static page.
-- Produces: private repository `xiaozi-max/CurvDelta`; no public deployment.
+- Consumes: the verified static page commit.
+- Produces: private repository `xiaozi-max/CurvDelta`; no public Pages deployment.
 
-- [ ] **Step 1: Run static validation**
+- [ ] **Step 1: Run final release checks**
 
-Run `python -m unittest discover -s tests -v`, scan HTML/CSS for private paths and credentials, and confirm `git diff --check` succeeds.
+Run the unit test, HTML link scan, secret/path scan, `git diff --check`, and `git status --short`.
 
-- [ ] **Step 2: Verify desktop and mobile layouts**
+Expected: tests pass; no secrets, personal paths, Chinese text, or uncommitted files.
 
-Serve the repository locally with `python -m http.server 8765`, inspect desktop and narrow mobile viewports, and confirm the title, author block, overview image, and repository cards are readable without horizontal overflow.
+- [ ] **Step 2: Create and push the private repository**
 
-- [ ] **Step 3: Create and push the private repository**
+```powershell
+gh repo create xiaozi-max/CurvDelta --private --description "Project page for CurvDelta: low-curvature delta modeling for surgical learning and unlearning"
+git remote add origin https://github.com/xiaozi-max/CurvDelta.git
+git push -u origin main
+```
 
-Create `xiaozi-max/CurvDelta` with private visibility, set it as `origin`, and push `main`. Do not enable GitHub Pages.
+- [ ] **Step 3: Verify remote state**
 
-- [ ] **Step 4: Verify remote state**
+Run `gh repo view xiaozi-max/CurvDelta --json isPrivate,visibility,defaultBranchRef,url` and compare `git rev-parse HEAD` with `git ls-remote origin refs/heads/main`.
 
-Confirm the repository visibility is `PRIVATE`, default branch is `main`, remote SHA equals local HEAD, and the remote tree contains `index.html`, `styles.css`, and `assets/overview.png`.
+Expected: repository is private, default branch is `main`, and local/remote SHAs match.
