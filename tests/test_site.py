@@ -40,6 +40,16 @@ class ProjectPageTest(unittest.TestCase):
     def test_overview_asset_exists(self):
         self.assertTrue((ROOT / "assets/overview.png").is_file())
 
+    def test_layout_remains_minimal(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertIn('<h2>Abstract</h2>', html)
+        self.assertIn('<h2>Overview</h2>', html)
+        self.assertIn('<h2>Code</h2>', html)
+        self.assertNotIn("eyebrow", html)
+        self.assertNotIn("section-index", html)
+        self.assertNotIn("repo-card", html)
+        self.assertNotIn("<script", html)
+
 
 if __name__ == "__main__":
     unittest.main()

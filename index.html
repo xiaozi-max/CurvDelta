@@ -3,85 +3,54 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="CurvDelta: low-curvature delta modeling for capability-preserving learning and unlearning.">
+  <meta name="description" content="CurvDelta: low-curvature delta modeling for surgical learning and unlearning.">
   <title>CurvDelta</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="hero" id="top">
-    <div class="shell">
-      <p class="eyebrow">Research project · 2026</p>
-      <h1>CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning</h1>
-
-      <p class="authors" aria-label="Authors">
-        <a href="https://github.com/ZeguanXiao">Zeguan Xiao<sup>1,*</sup></a>
-        <span aria-hidden="true">·</span>
-        <a href="https://github.com/xiaozi-max">Zhuocheng Liang<sup>1,*</sup></a>
-        <span aria-hidden="true">·</span>
-        <span>Yun Chen<sup>1</sup></span>
-        <span aria-hidden="true">·</span>
-        <span>Yong Wang<sup>2</sup></span>
-        <span aria-hidden="true">·</span>
-        <span>Guanhua Chen<sup>3</sup></span>
-        <span aria-hidden="true">·</span>
-        <span>Pinyan Lu<sup>4</sup></span>
-      </p>
-
-      <div class="affiliations">
-        <p><sup>1</sup> Shanghai University of Finance and Economics</p>
-        <p><sup>2</sup> Alibaba Group</p>
-        <p><sup>3</sup> Southern University of Science and Technology</p>
-        <p><sup>4</sup> Huawei Technologies Ltd.</p>
-        <p class="equal"><sup>*</sup> Equal contribution.</p>
-      </div>
+  <header>
+    <h1>CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning</h1>
+    <p class="authors">
+      <a href="https://github.com/ZeguanXiao">Zeguan Xiao<sup>1,*</sup></a>,
+      <a href="https://github.com/xiaozi-max">Zhuocheng Liang<sup>1,*</sup></a>,
+      Yun Chen<sup>1</sup>, Yong Wang<sup>2</sup>, Guanhua Chen<sup>3</sup>, Pinyan Lu<sup>4</sup>
+    </p>
+    <div class="affiliations">
+      <span><sup>1</sup> Shanghai University of Finance and Economics</span>
+      <span><sup>2</sup> Alibaba Group</span>
+      <span><sup>3</sup> Southern University of Science and Technology</span>
+      <span><sup>4</sup> Huawei Technologies Ltd.</span>
     </div>
+    <p class="equal"><sup>*</sup> Equal contribution.</p>
   </header>
 
   <main>
-    <section class="section shell" aria-labelledby="abstract-title">
-      <p class="section-index">01 / Abstract</p>
-      <h2 id="abstract-title">Preserve capability by design.</h2>
-      <p class="abstract">
+    <section>
+      <h2>Abstract</h2>
+      <p>
         A central challenge in adapting large language models (LLMs) is capability preservation: an adaptation can achieve its target while degrading general capabilities. We introduce CurvDelta, a scalable framework that incorporates the preservation constraint into the parameterization of the model update. By analyzing the local geometry of the preservation constraint around the pre-adaptation model, CurvDelta constructs a low-curvature space in which parameter updates leave the preservation loss nearly invariant. We make its construction practical for LLMs through Kronecker-factored approximate curvature (K-FAC) and a factorized projection. We also introduce CurvLoRA, a low-rank variant within the same preservation geometry, designed for more efficient adaptation. Both methods apply to preservation-constrained adaptation tasks such as capability learning and selective unlearning. We evaluate our methods on mathematical reasoning, code generation, and knowledge unlearning. For mathematical reasoning and code generation, our approaches achieve competitive downstream performance while better preserving general capabilities, offering a favorable acquisition--retention trade-off relative to the baselines. For knowledge unlearning, our main results on TOFU and MUSE show a better balance between targeted forgetting and knowledge retention than the baselines, with retention performance close to the from-scratch retraining reference.
       </p>
     </section>
 
-    <section class="section figure-section" aria-labelledby="overview-title">
-      <div class="shell">
-        <p class="section-index">02 / Overview</p>
-        <h2 id="overview-title">One geometry, two adaptation regimes.</h2>
-      </div>
-      <figure class="overview shell-wide">
-        <img src="assets/overview.png" alt="CurvDelta framework showing its low-curvature update space, parameterizations, and acquisition-retention trade-off.">
+    <section>
+      <h2>Overview</h2>
+      <figure>
+        <img src="assets/overview.png" alt="Overview of the CurvDelta and CurvLoRA framework.">
         <figcaption>
           (a) Unconstrained optimization reaches low task loss but high preservation loss. (b) CurvDelta constructs a low-curvature delta space. The applied delta remains in this space throughout optimization, reaching a different solution with comparable task loss. (c) The base weights and projections remain frozen. The trainable delta is a dense matrix in CurvDelta or LoRA in CurvLoRA. (d) Performance comparison. The dashed line marks the base model's retention average. Our methods achieve the best trade-off between task performance and capability retention.
         </figcaption>
       </figure>
     </section>
 
-    <section class="section shell" aria-labelledby="code-title">
-      <p class="section-index">03 / Code</p>
-      <h2 id="code-title">Explore both applications.</h2>
-      <div class="repo-grid">
-        <a class="repo-card" href="https://github.com/xiaozi-max/curvDelta_learning">
-          <span class="repo-label">Capability learning</span>
-          <strong>curvDelta_learning</strong>
-          <span class="repo-action">View repository <span aria-hidden="true">↗</span></span>
-        </a>
-        <a class="repo-card" href="https://github.com/xiaozi-max/curvDelta_unlearning">
-          <span class="repo-label">Selective unlearning</span>
-          <strong>curvDelta_unlearning</strong>
-          <span class="repo-action">View repository <span aria-hidden="true">↗</span></span>
-        </a>
+    <section>
+      <h2>Code</h2>
+      <div class="links">
+        <a href="https://github.com/xiaozi-max/curvDelta_learning">Capability Learning</a>
+        <a href="https://github.com/xiaozi-max/curvDelta_unlearning">Selective Unlearning</a>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="shell">
-      <span>CurvDelta · Research project · 2026</span>
-      <a href="#top" aria-label="Back to top">Back to top ↑</a>
-    </div>
-  </footer>
+  <footer>CurvDelta · 2026</footer>
 </body>
 </html>
