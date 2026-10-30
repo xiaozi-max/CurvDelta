@@ -1,11 +1,8 @@
 # CurvDelta Project Page
 
-Static project page for **CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning**.
+Project page for: CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning
 
-The site is intentionally buildless. Open `index.html` directly or serve the directory with:
+Code link for Capability learning: https://github.com/xiaozi-max/curvDelta_learning
+for Selective Unlearning: https://github.com/xiaozi-max/curvDelta_unlearning
 
-```bash
-python -m http.server 8765
-```
 
-The repository is kept private until the project is ready for public release.
