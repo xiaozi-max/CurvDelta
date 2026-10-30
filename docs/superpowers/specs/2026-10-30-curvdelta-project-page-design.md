@@ -17,7 +17,19 @@ Create a compact research project page for CurvDelta that introduces the unified
 The page contains one concise, responsive document:
 
 1. Hero section with the paper title: “CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning.”
-2. A visible contributor line linking `xiaozi-max` and `ZeguanXiao` to their GitHub profiles. This is independent of GitHub’s repository-sidebar ranking.
+2. The author list and affiliations, without institutional domains in parentheses:
+   - Zeguan Xiao¹,*
+   - Zhuocheng Liang¹,*
+   - Yun Chen¹
+   - Yong Wang²
+   - Guanhua Chen³
+   - Pinyan Lu⁴
+   - ¹ Shanghai University of Finance and Economics
+   - ² Alibaba Group
+   - ³ Southern University of Science and Technology
+   - ⁴ Huawei Technologies Ltd.
+   - `* Equal contribution.`
+   The first two author names link to the `ZeguanXiao` and `xiaozi-max` GitHub profiles.
 3. The paper abstract, copied exactly from the repository README.
 4. The overview figure and its existing caption.
 5. Two equal code cards:
